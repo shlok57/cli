@@ -285,7 +285,7 @@ func addFlags(flags *pflag.FlagSet) *containerOptions {
 	flags.StringVar(&copts.runtime, "runtime", "", "Runtime to use for this container")
 
 	// Network Bandwidth Change
-	flags.IntVar(&copts.networkbandwidth, "networkbandwidth", -1 , "Netork Bandwidth for this container")
+	flags.IntVar(&copts.networkBandwidth, "networkbandwidth", -1 , "Netork Bandwidth for this container")
 
 	flags.BoolVar(&copts.init, "init", false, "Run an init inside the container that forwards signals and reaps processes")
 	flags.SetAnnotation("init", "version", []string{"1.25"})
