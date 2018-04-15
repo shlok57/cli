@@ -119,6 +119,9 @@ type containerOptions struct {
 	autoRemove         bool
 	init               bool
 
+	// Network Bandwidth Change
+	networkBandwidth   int
+
 	Image string
 	Args  []string
 }
@@ -280,6 +283,9 @@ func addFlags(flags *pflag.FlagSet) *containerOptions {
 	flags.Var(&copts.shmSize, "shm-size", "Size of /dev/shm")
 	flags.StringVar(&copts.utsMode, "uts", "", "UTS namespace to use")
 	flags.StringVar(&copts.runtime, "runtime", "", "Runtime to use for this container")
+
+	// Network Bandwidth Change
+	flags.IntVar(&copts.networkbandwidth, "networkbandwidth", -1 , "Netork Bandwidth for this container")
 
 	flags.BoolVar(&copts.init, "init", false, "Run an init inside the container that forwards signals and reaps processes")
 	flags.SetAnnotation("init", "version", []string{"1.25"})
@@ -599,6 +605,9 @@ func parse(flags *pflag.FlagSet, copts *containerOptions) (*containerConfig, err
 		Sysctls:        copts.sysctls.GetAll(),
 		Runtime:        copts.runtime,
 		Mounts:         mounts,
+
+		// Network Bandwidth Change
+		NetworkBandwidth:		copts.networkBandwidth,	
 	}
 
 	if copts.autoRemove && !hostConfig.RestartPolicy.IsNone() {
