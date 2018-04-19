@@ -25,6 +25,7 @@ type updateOptions struct {
 	memory             opts.MemBytes
 	memoryReservation  opts.MemBytes
 	memorySwap         opts.MemSwapBytes
+    networkBandwidth   int
 	kernelMemory       opts.MemBytes
 	restartPolicy      string
 	cpus               opts.NanoCPUs
@@ -63,6 +64,7 @@ func NewUpdateCommand(dockerCli command.Cli) *cobra.Command {
 	flags.VarP(&options.memory, "memory", "m", "Memory limit")
 	flags.Var(&options.memoryReservation, "memory-reservation", "Memory soft limit")
 	flags.Var(&options.memorySwap, "memory-swap", "Swap limit equal to memory plus swap: '-1' to enable unlimited swap")
+    flags.IntVar(&options.networkBandwidth, "networkbandwidth", -1 , "Network Bandwidth for this container")
 	flags.Var(&options.kernelMemory, "kernel-memory", "Kernel memory limit")
 	flags.StringVar(&options.restartPolicy, "restart", "", "Restart policy to apply when a container exits")
 
